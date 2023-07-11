@@ -1,12 +1,11 @@
 from django.urls import path
 
+app_name = 'accounts'
 
 # accounts views
 from accounts.views import SignupView
 from accounts.views import UserLogout
 from accounts.views import UserLoginView
-
-app_name = 'accounts'
 
 
 urlpatterns = [

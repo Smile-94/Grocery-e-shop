@@ -106,11 +106,3 @@ class Profile(models.Model):
                 return False
         return True
 
-
-# Abstract Base User Models
-class BaseModels(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True

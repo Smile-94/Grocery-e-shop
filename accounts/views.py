@@ -53,6 +53,28 @@ class SignupView(CreateView):
             print(e)
             return self.form_invalid(form)
         
+class DeleverymanSignupView(CreateView):
+    form_class = SignUpForm
+    success_url = reverse_lazy('accounts:login')
+    template_name = 'accounts/signup.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Customer Signup"
+        return context
+    
+    def form_valid(self, form):
+        try:
+            form_obj=form.save()
+            form_obj.is_customer = True
+            form_obj.save()
+            messages.success(self.request, "Welcome to Sizzling Station")
+            return super().form_valid(form)
+        
+        except Exception as e:
+            print(e)
+            return self.form_invalid(form)
+        
     def form_invalid(self, form):
         email = form.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():

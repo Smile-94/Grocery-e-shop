@@ -1,7 +1,7 @@
 from django.db import models
 
 # Abstract Base Models
-from accounts.models import BaseModels
+from common.models import BaseModel
 
 # Import Models
 from accounts.models import User
@@ -9,7 +9,7 @@ from accounts.models import User
 # Create your models here.
 
 #Customer Billing Address
-class BillingAddress(BaseModels):
+class BillingAddress(BaseModel):
     address_of = models.OneToOneField(User, on_delete=models.CASCADE, related_name='billing_user')
     address = models.CharField(max_length=200, blank=True, null=True)
     contact_number = models.CharField(max_length=20, blank=True)
@@ -19,7 +19,7 @@ class BillingAddress(BaseModels):
 
 
 # Customer Shipping Address
-class ShippingAddress(BaseModels):
+class ShippingAddress(BaseModel):
     address_of = models.OneToOneField(User, on_delete=models.CASCADE, related_name='shipping_user')
     receiver_name = models.CharField(max_length=100, blank=True, null=True)
     address = models.CharField(max_length=200, blank=True, null=True)

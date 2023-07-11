@@ -50,7 +50,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="{% url 'authority:authority' %}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>E-Shop</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -66,23 +66,23 @@
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i></i>User</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i></i>Staff User</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item"><i class="fa-solid fa-user-plus"></i>Add User</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-user"></i>User List</a>
+                            <a href="button.html" class="dropdown-item"><i class="fa-solid fa-user-plus me-2"></i>Add User</a>
+                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-user me-2"></i>User List</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i></i>Customer</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-user"></i>Customer List</a>
+                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-user me-2"></i>Customer List</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i></i>Deleveryman</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-truck"></i>Deleveryman</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-user"></i>Add Deleveryman</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-user"></i>Deleveryman List</a>
+                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-truck me-2"></i>Add Deleveryman</a>
+                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-truck me-2"></i>Deleveryman List</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -103,24 +103,24 @@
                             <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-cart-shopping me-2"></i>Delevered Order</a>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-store"></i>Store</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-store me-2"></i>Store</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store"></i>Purchase Product</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store"></i>Purchase List</a>
+                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store me-2"></i>Purchase Product</a>
+                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store me-2"></i>Purchase List</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-store"></i>Payments</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-money-bill me-2"></i>Payments</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store"></i>Payments List</a>
+                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-money-bill me-2"></i>Payments List</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-store"></i>Report</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-chart-pie"></i>Report</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store"></i>Order Report</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store"></i>Purchase Report</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store"></i>Sals Report</a>
+                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-chart-pie me-2"></i>Order Report</a>
+                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-chart-pie me-2"></i>Purchase Report</a>
+                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-chart-pie me-2"></i>Sals Report</a>
                         </div>
                     </div>
                 </div>
@@ -214,7 +214,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="{% url 'accounts:logout' %}" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
