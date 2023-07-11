@@ -9,21 +9,29 @@ from common.validators import validate_float_value, validate_float_value_with_ra
 from common.models import BaseModel
 
 class CategoryLocation(models.TextChoices):
-    BARISAL = 'Barisal', 'barisal'
-    CHITTAGONG = 'Chittagong', 'chittagong'
     BODYCARE = 'bodycare', 'Bodycare'
+    PRIVATE_CATE = 'private_Care', 'Private Care'
     FOOD ='food','Food'
+
+
     
 # Create your models here.
 class Category(BaseModel):
     category_name = models.CharField(max_length=50, unique=True)
     category_location = models.CharField( max_length=20, choices=CategoryLocation.choices,default=CategoryLocation.FOOD)
 
+    def __str__(self):
+        return f"{self.category_name}-{self.category_location}"
+    
+
 
 # Create your models here.
 class SubCategory(BaseModel):
     subcategory_name = models.CharField(max_length=50, unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.subcategory_name}-{self.category}"
 
 
 class Product(BaseModel):
@@ -32,8 +40,10 @@ class Product(BaseModel):
     sub_catagory_1 = models.ForeignKey(SubCategory,on_delete=models.SET_NULL,related_name='categries_1',null=True,blank=True)
     sub_catagory_2 = models.ForeignKey(SubCategory,on_delete=models.SET_NULL,related_name='categries_2',null=True,blank=True)
     sub_catagory_3 = models.ForeignKey(SubCategory,on_delete=models.SET_NULL,related_name='categries_3',null=True,blank=True)
-    purchase_price = models.FloatField(null=True, blank=True, default=None, validators=[validate_float_value])
-    image = models.ImageField(upload_to='media/product', null=True, blank=True)
+    main_image = models.ImageField(upload_to='media/product', null=True, blank=True)
+    image_1 = models.ImageField(upload_to='media/product', null=True, blank=True)
+    image_2 = models.ImageField(upload_to='media/product', null=True, blank=True)
+    image_3 = models.ImageField(upload_to='media/product', null=True, blank=True)
     product_price = models.FloatField(null=True, blank=True, default=None, validators=[validate_float_value])
     unit = models.CharField(max_length=700, null=True, blank=True)
     stock = models.PositiveBigIntegerField(blank=False,null=False, default=0)
@@ -54,14 +64,26 @@ class Product(BaseModel):
 
         formatted_date = current_date.strftime('%d%m%y')
         formatted_counter = str(new_counter).zfill(4)  # Ensure the counter is always two digits with leading zeros
-        new_id = f'RE{formatted_date}{formatted_counter}'
+        new_id = f'GP{formatted_date}{formatted_counter}'
 
         self.product_id = new_id
 
        
     def __str__(self):
-        return self.menu_name
+        return f''
+    
 
+class ProductBatch(BaseModel):
+    batch_no = models.CharField(max_length=50)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='batch_product')
+    quantity = models.PositiveIntegerField(default=0)
+    purchase_price = models.FloatField(null=True, blank=True, default=None, validators=[validate_float_value])
+    mfg_date = models.DateTimeField(blank=True, null=True)
+    expire_date = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.batch_no}-{self.product}"
+    
 
     
     
