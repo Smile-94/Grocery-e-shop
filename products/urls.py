@@ -27,6 +27,9 @@ urlpatterns += [
 urlpatterns +=[
     path('product-list/', manage_product.ProductListView.as_view(), name='product_list' ),
     path('add-product/', manage_product.AddProductView.as_view(), name='add_product' ),
+    path('update-product/<int:pk>/', manage_product.UpdateProductView.as_view(), name='update_product' ),
+    path('product-details/<int:pk>/', manage_product.ProductDetailsView.as_view(), name='product_details' ),
+    path('delete-product/<int:pk>/', manage_product.ProductDeleteView.as_view(), name='delete_product' ),
 ]
 
 

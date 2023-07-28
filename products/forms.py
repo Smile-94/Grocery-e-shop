@@ -5,6 +5,9 @@ from products.models import Category
 from products.models import SubCategory
 from products.models import Product
 
+# Import Widgets
+from products.widgets import CustomPictureImageFieldWidget
+
 class CategoryForm(forms.ModelForm):
 
     class Meta:
@@ -20,6 +23,11 @@ class SubCategoryForm(forms.ModelForm):
 
 
 class ProductForm(forms.ModelForm):
+
+    main_image = forms.ImageField(widget=CustomPictureImageFieldWidget)
+    image_1 = forms.ImageField(widget=CustomPictureImageFieldWidget)
+    image_2 = forms.ImageField(widget=CustomPictureImageFieldWidget)
+    image_3 = forms.ImageField(widget=CustomPictureImageFieldWidget)
 
     class Meta:
         model = Product
