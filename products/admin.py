@@ -23,9 +23,19 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('product_id', 'product_name', 'sub_catagory_1', 'sub_catagory_2', 'sub_catagory_3', 'product_price',  'stock',)
-    search_fields = ('product_id', 'product_name', 'sub_catagory_1', 'sub_catagory_2', 'sub_catagory_3', 'product_price',  'stock',)
+    list_display = ('product_id', 'product_name', 'sub_catagory_1', 'sub_catagory_2', 'sub_catagory_3', 'product_price', 'stock',)
+    search_fields = ('product_id', 'product_name', 'sub_catagory_1', 'sub_catagory_2', 'sub_catagory_3', 'product_price', 'stock',)
     list_per_page = 50
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'sub_catagory_1':
+            kwargs['queryset'] = SubCategory.objects.filter(is_active=True)
+        elif db_field.name == 'sub_catagory_2':
+            kwargs['queryset'] = SubCategory.objects.filter(is_active=True)
+        elif db_field.name == 'sub_catagory_3':
+            kwargs['queryset'] = SubCategory.objects.filter(is_active=True)
+
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(ProductBatch)

@@ -13,7 +13,6 @@ class CategoryLocation(models.TextChoices):
     PRIVATE_CATE = 'private_Care', 'Private Care'
     FOOD ='food','Food'
 
-
     
 # Create your models here.
 class Category(BaseModel):
@@ -51,23 +50,25 @@ class Product(BaseModel):
     description = models.TextField(blank=True,null=True)
 
 
-    def generate_custom_id(self):
-        current_date = datetime.date.today()
-        previous_instance = Product.objects.filter(created_at__date=current_date).order_by('-created_at').first()
+    def save(self, *args, **kwargs):
+        if not self.product_id:
+            current_date = datetime.date.today()
+            previous_instance = Product.objects.filter(created_at__date=current_date).order_by('-created_at').first()
 
-        if previous_instance:
-            previous_id = previous_instance.product_id
-            previous_counter = int(previous_id[-2:])  # Extract the last two digits as the counter
-            new_counter = (previous_counter + 1) % 100  # Increment and ensure it stays within two digits
-        else:
-            new_counter = 1
+            if previous_instance and previous_instance.product_id:
+                previous_id = previous_instance.product_id
+                previous_counter = int(previous_id[-4:])  # Extract the last four digits as the counter
+                new_counter = (previous_counter + 1) % 10000  # Increment and ensure it stays within four digits
+            else:
+                new_counter = 1
 
-        formatted_date = current_date.strftime('%d%m%y')
-        formatted_counter = str(new_counter).zfill(4)  # Ensure the counter is always two digits with leading zeros
-        new_id = f'GP{formatted_date}{formatted_counter}'
+            formatted_date = current_date.strftime('%d%m%y')
+            formatted_counter = str(new_counter).zfill(4)  # Ensure the counter is always four digits with leading zeros
+            new_id = f'GP{formatted_date}{formatted_counter}'
 
-        self.product_id = new_id
+            self.product_id = new_id
 
+        super(Product, self).save(*args, **kwargs)
        
     def __str__(self):
         return f''
@@ -78,6 +79,7 @@ class ProductBatch(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='batch_product')
     quantity = models.PositiveIntegerField(default=0)
     purchase_price = models.FloatField(null=True, blank=True, default=None, validators=[validate_float_value])
+    sale_price = models.FloatField(null=True, blank=True, default=None, validators=[validate_float_value])
     mfg_date = models.DateTimeField(blank=True, null=True)
     expire_date = models.DateTimeField(blank=True, null=True)
 
