@@ -21,7 +21,7 @@ class Category(BaseModel):
     category_location = models.CharField( max_length=20, choices=CategoryLocation.choices,default=CategoryLocation.FOOD)
 
     def __str__(self):
-        return f"{self.category_name}-{self.category_location}"
+        return f"{self.category_name}"
     
 
 
@@ -31,7 +31,7 @@ class SubCategory(BaseModel):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.subcategory_name}-{self.category}"
+        return f"{self.subcategory_name}"
 
 
 class Product(BaseModel):
