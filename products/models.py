@@ -13,6 +13,11 @@ class CategoryLocation(models.TextChoices):
     PRIVATE_CATE = 'private_Care', 'Private Care'
     FOOD ='food','Food'
 
+
+class ProductType(models.TextChoices):
+    FEATURED = 'featured', 'Featured'
+    GENERAL = 'general', 'General'
+
     
 # Create your models here.
 class Category(BaseModel):
@@ -36,6 +41,7 @@ class SubCategory(BaseModel):
 class Product(BaseModel):
     product_id = models.CharField(max_length=50, blank=True, null=True)
     product_name = models.CharField(max_length=200)
+    product_type = models.CharField(max_length=15, choices=ProductType.choices, default='general')
     sub_catagory_1 = models.ForeignKey(SubCategory,on_delete=models.SET_NULL,related_name='categries_1',null=True,blank=True)
     sub_catagory_2 = models.ForeignKey(SubCategory,on_delete=models.SET_NULL,related_name='categries_2',null=True,blank=True)
     sub_catagory_3 = models.ForeignKey(SubCategory,on_delete=models.SET_NULL,related_name='categries_3',null=True,blank=True)
