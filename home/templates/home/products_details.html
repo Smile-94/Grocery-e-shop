@@ -1,0 +1,95 @@
+{% extends 'home_base/home_base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block body %}
+<!-- --------------------- Single Product Details------------ -->
+<div class="small-container single-product">
+    <div class="row">
+        <div class="col-2">
+            <img src="{{product.main_image.url}}" alt="" width="100%" id="ProductImg">
+
+            <div class="small-img-row">
+                <div class="small-img-col">
+                    <img src=" {{product.main_image.url}} " alt="" width="100%" class="small-img">
+                    
+                </div>
+                <div class="small-img-col">
+                    <img src=" {{product.image_1.url}} " alt="" width="100%" class="small-img">
+
+                </div>
+                <div class="small-img-col">
+                    <img src=" {{product.image_2.url}} " alt="" width="100%" class="small-img">
+
+                </div>
+                <div class="small-img-col">
+                    <img src=" {{product.image_3.url}} " alt="" width="100%" class="small-img">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <h1 > {{product.product_name}} ( {{product.unit}} )</h1>
+            <h4> {{product.product_price}} (-{{product.discount}}%) TK </h4>
+            <a href="" class="btn"> Add To Cart</a>
+
+            <h3>Product Details <i class="fa fa-indent "></i></h3>
+            <br>
+            <p> {{product.description}} </p>
+        </div>
+    </div>
+</div>
+
+<!-- ---------title----------------- -->
+<div class="small-container">
+    <div class="row row-2">
+        <h2 class="title">Related Products</h2>
+        <p>View more</p>
+
+    </div>
+</div>
+
+<div class="small-container">
+    <div class="row">
+        {% if related_products %}
+            {% for product in related_products %}
+                <a href="{% url 'home:product_details' product.id %}">
+                    <div class="col-4">
+                        <img src="{{product.main_image.url}}" alt="">
+                        <h4> {{product.product_name}} ({{product.unit}}) </h4>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
+                        <a href="" class="btn"> Add To Cart</a>
+                    </div>
+                </a>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<!-- ------------------js for product gallery----------- -->
+<script>
+    var ProductImg = document.getElementById("ProductImg");
+    var SmallImg = document.getElementsByClassName("small-img");
+
+    SmallImg[0].onclick = function(){
+        ProductImg.src = SmallImg[0].src;
+    }
+    SmallImg[1].onclick = function(){
+        ProductImg.src = SmallImg[1].src;
+    }
+    SmallImg[2].onclick = function(){
+        ProductImg.src = SmallImg[2].src;
+    }
+    SmallImg[3].onclick = function(){
+        ProductImg.src = SmallImg[3].src;
+    }
+</script>
+{% endblock body %}

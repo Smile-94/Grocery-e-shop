@@ -1,163 +1,160 @@
-<!DOCTYPE html>
+{% extends 'home_base/home_base.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grocery Website</title>
-    <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
 
-    <!-- ----- font-asesome------------- -->
-     <!-- font-aswome cdn -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-     <script src="https://kit.fontawesome.com/ddee993d4e.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <!-- nav-bar code start -->
-    <div class="header">
-        <div class="container">
-            <div class="navbar">
-                <div class="logo">
-                    <img src="{% static 'home/images/logo.png' %}" alt="" width="125px">
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Products</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Accounts</a></li>
-                    </ul>
-                    <img src="{% static 'home/images/cart.png' %}" alt="" width="30px" height="30px">
+{% block title %}{% endblock title %}
 
-                </nav>
-            </div>
-            <div class="row">
-                <div class="col-2">
-                    <h1>Give Your Workout <br> A New Style</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.<br> Magnam, quo culpa temporibus maxime accusantium dignissimos adipisci eligendi doloremque illo quaerat assumenda voluptas laborum sunt. Alias voluptatibus dolorum dolor dolores voluptates?</p>
-                    <a href="#" class="btn"> Explore Now &#8594;</a>
 
-                </div>
-                <div class="col-2">
-                    <img src="{% static 'home/images/image1.png' %}" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
+{% block body %}
+{% block hero %}
+    {% include "home_base/heor.html" %}
+{% endblock hero %}
 
-<!-- --------------featured categories------------ -->
-    <div class="categories">
-        <div class="small-container">
-            <div class="row">
-                <div class="col-3">
-                    <img src="{% static 'home/images/category-1.jpg' %}" alt="">
-                </div>
-                <div class="col-3">
-                    <img src="{% static 'home/images/category-2.jpg' %}" alt="">
-                </div>
-                <div class="col-3">
-                    <img src="{% static 'home/images/category-3.jpg' %}" alt="">
-                </div>
-                
-            </div>
-        </div>
-    </div>
 
 <!-- --------------featured product------------ -->
 <div class="small-container">
     <h2 class="title">Featured Products</h2>
     <div class="row">
-        <div class="col-4">
-            <img src="{% static 'home/images/product-1.jpg' %}" alt="">
-            <h4>Read Printed Tshirt</h4>
-            <div class="rating">
-                <i class="fa-solid fa-star "></i>
-                <i class="fa-solid fa-star "></i>
-                <i class="fa-solid fa-star "></i>
-                <i class="fa-solid fa-star "></i>
-                <i class="fa-regular fa-star "></i>
-            </div>
-            <p>$50.00</p>
-        </div>
-        <div class="col-4">
-            <img src="{% static 'home/images/product-2.jpg' %}" alt="">
-            <h4>Read Printed Tshirt</h4>
-            <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-            </div>
-            <p>$50.00</p>
-        </div>
-        <div class="col-4">
-            <img src="{% static 'home/images/product-3.jpg' %}" alt="">
-            <h4>Read Printed Tshirt</h4>
-            <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-            </div>
-            <p>$50.00</p>
-        </div>
-        <div class="col-4">
-            <img src="{% static 'home/images/product-4.jpg' %}" alt="">
-            <h4>Read Printed Tshirt</h4>
-            <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-            </div>
-            <p>$50.00</p>
-        </div>
+        {% if featured_product %}
+                {% for product in featured_product %}
+                <a href="{% url 'home:product_details' product.id %}">
+                    <div class="col-4">
+                        <img src="{{product.main_image.url}}" alt="">
+                        <h4> {{product.product_name}} ({{product.unit}}) </h4>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
+                        <a href="" class="btn"> Add To Cart</a>
+                    </div>
+                </a>
+                
+                {% endfor %} 
+            {% endif %} 
     </div>
     <!-- -------------recent product --------- -->
-    
     <h2 class="title">Recent Products</h2>
-    <div class="row">
-        {% if recent_product %}
-            {% for product in recent_product %}
-                <div class="col-4">
-                    <img src="{{product.main_image.url}}" alt="">
-                    <h4> {{product.product_name}} ({{product.unit}}) </h4>
-                    <div class="rating">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                    </div>
-                    <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
-                </div>
-            {% endfor %}
-            
-            
-        {% endif %}
-        
-</div> 
-</div>
-
-<!-- ------------- offer ---------- -->
-<div class="offer">
-    <div class="small-container">
+    
         <div class="row">
-            <div class="col-2">
-                <img class="offer-img" src="{% static 'home/images/exclusive.png' %}" alt="">
-            </div>
-            <div class="col-2">
-                <p>Exclusively Available on Red Store</p>
-                <h1>Smart Band 4</h1>
-                <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut ab amet nisi totam soluta ea nobis, iure nam blanditiis maiores pariatur nihil quod aperiam dolores molestias, enim dignissimos. Fugiat, autem.</small>
-                <a href="#" class="btn">Buy Now &#8594;</a>
-            </div>
+            {% if recent_product %}
+            {% for product in recent_product %}
+                <a href="{% url 'home:product_details' product.id %}">
+                    <div class="col-4">
+                        <img src="{{product.main_image.url}}" alt="">
+                        <h4> {{product.product_name}} ({{product.unit}}) </h4>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
+                        <a href="" class="btn"> Add To Cart</a>
+                    </div>
+                </a>
+            {% endfor %}
+        {% endif %} 
+            
+        
+        </div>
+</div> 
+
+
+{% comment %} <!-- ------------- offer ---------- -->
+<div class="offer">
+<div class="small-container">
+    <div class="row">
+        <div class="col-2">
+            <img class="offer-img" src="images/exclusive.png" alt="">
+        </div>
+        <div class="col-2">
+            <p>Exclusively Available on Red Store</p>
+            <h1>Smart Band 4</h1>
+            <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut ab amet nisi totam soluta ea nobis, iure nam blanditiis maiores pariatur nihil quod aperiam dolores molestias, enim dignissimos. Fugiat, autem.</small>
+            <a href="#" class="btn">Buy Now &#8594;</a>
         </div>
     </div>
-</div> 
-</body>
-</html>
+</div>
+</div> {% endcomment %}
+
+<!-- -----------testimonial--------- -->
+<div class="testimonial">
+<div class="small-container">
+    <div class="row">
+
+        <div class="col-3">
+            <i class="fa-solid fa-quote-left"></i>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ratione at ipsum in, vero necessitatibus ad autem consequuntur, explicabo ab, adipisci labore aliquid facilis nihil aliquam repellat quae aperiam sit!</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+            </div>
+            <img src="{% static 'home/images/user-1.png' %}" alt="">
+            <h3>Mark Atto</h3>
+        </div>
+        <div class="col-3">
+            <i class="fa-solid fa-quote-left"></i>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ratione at ipsum in, vero necessitatibus ad autem consequuntur, explicabo ab, adipisci labore aliquid facilis nihil aliquam repellat quae aperiam sit!</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+            </div>
+            <img src="{% static 'home/images/user-2.png' %}" alt="">
+            <h3>Mark Atto</h3>
+        </div>
+        <div class="col-3">
+            <i class="fa-solid fa-quote-left"></i>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ratione at ipsum in, vero necessitatibus ad autem consequuntur, explicabo ab, adipisci labore aliquid facilis nihil aliquam repellat quae aperiam sit!</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+            </div>
+            <img src="{% static 'home/images/user-3.png' %}" alt="">
+            <h3>Mark Atto</h3>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<!-- ------------------brands-------------- -->
+<div class="brands">
+<div class="small-container">
+    <div class="row">
+        <div class="col-5">
+            <img src="{% static 'home/images/logo-godrej.png' %}" alt="">
+
+        </div>
+        <div class="col-5">
+            <img src="{% static 'home/images/logo-oppo.png' %}" alt="">
+
+        </div>
+        <div class="col-5">
+            <img src="{% static 'home/images/logo-coca-cola.png' %}" alt="">
+
+        </div>
+        <div class="col-5">
+            <img src="{% static 'home/images/logo-paypal.png' %}" alt="">
+
+        </div>
+        <div class="col-5">
+            <img src="{% static 'home/images/logo-philips.png' %}" alt="">
+
+        </div>
+    </div>
+</div>
+</div>
+{% endblock body %}

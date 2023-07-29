@@ -1,0 +1,31 @@
+{% extends 'home_base/home_base.html' %}
+{% load static %}
+
+{% block title %}{% endblock title %}
+
+{% block body %}
+    <div class="small-container">
+        <h2 class="title">All Products</h2>
+        <div class="row">
+            {% if products %}
+                {% for product in products %}
+                    <a href="{% url 'home:product_details' product.id %}">
+                        <div class="col-4">
+                            <img src="{{product.main_image.url}}" alt="">
+                            <h4> {{product.product_name}} ({{product.unit}}) </h4>
+                            <div class="rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                            <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
+                            <a href="" class="btn"> Add To Cart</a>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock body %}
