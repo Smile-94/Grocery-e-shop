@@ -79,7 +79,7 @@ class Product(BaseModel):
     def __str__(self):
         return f''
     
-
+    
 class ProductBatch(BaseModel):
     batch_no = models.CharField(max_length=50)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='batch_product')

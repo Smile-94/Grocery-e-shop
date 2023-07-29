@@ -31,7 +31,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        exclude = ('product_id','is_active')
+        exclude = ('product_id', 'product_type','is_active')
     
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
