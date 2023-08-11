@@ -4,7 +4,12 @@ from django.contrib import admin
 from products.models import Category
 from products.models import SubCategory
 from products.models import Product
+from products.models import Cart
+from products.models import Order
 from products.models import ProductBatch
+
+
+
 
 # Register your models here.
 @admin.register(Category)
@@ -37,6 +42,13 @@ class ProductAdmin(admin.ModelAdmin):
 
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
+@admin.register(Cart)
+class ChartAdmin(admin.ModelAdmin):
+    list_display = ('user', 'quentity', 'purchased', 'created', 'updated', )
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('ordered_id', 'user', 'ordered', 'created', 'payment_id', 'order_id', 'payment_status', 'order_confirm', 'ordered_at', 'confirmed_at', 'delevery_status', )
 
 @admin.register(ProductBatch)
 class ProductBatchAdmin(admin.ModelAdmin):

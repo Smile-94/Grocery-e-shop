@@ -1,3 +1,5 @@
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -42,21 +44,26 @@ class SignupView(CreateView):
         return context
     
     def form_valid(self, form):
+        print()
         try:
             form_obj=form.save()
             form_obj.is_customer = True
             form_obj.save()
-            messages.success(self.request, "Welcome to Sizzling Station")
+            messages.success(self.request, "Welcome to Red-Store")
             return super().form_valid(form)
         
         except Exception as e:
             print(e)
             return self.form_invalid(form)
         
+    def form_invalid(self, form) :
+        messages.success(self.request, "Email and Password already exist")
+        return super().form_invalid(form)
+        
 class DeleverymanSignupView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy('accounts:login')
-    template_name = 'accounts/signup.html'
+    template_name = 'accounts/login.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,6 +99,7 @@ class UserLoginView(LoginView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Login Page" 
+        context["signup_form"] = SignUpForm
         return context
     
     

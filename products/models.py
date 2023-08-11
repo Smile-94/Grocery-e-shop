@@ -8,6 +8,9 @@ from common.validators import validate_float_value, validate_float_value_with_ra
 # Base Model
 from common.models import BaseModel
 
+# Models
+from accounts.models import User
+
 class CategoryLocation(models.TextChoices):
     BODYCARE = 'bodycare', 'Bodycare'
     PRIVATE_CATE = 'private_Care', 'Private Care'
@@ -77,7 +80,7 @@ class Product(BaseModel):
         super(Product, self).save(*args, **kwargs)
        
     def __str__(self):
-        return f''
+        return f'{self.product_name}'
     
     
 class ProductBatch(BaseModel):
@@ -91,6 +94,66 @@ class ProductBatch(BaseModel):
 
     def __str__(self):
         return f"{self.batch_no}-{self.product}"
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart_user')
+    items = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='cart_items')
+    quentity = models.IntegerField(default=1)
+    purchased = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.quentity} X {self.items}"
+    
+    def get_total(self):
+        total = float(self.items.product_price) * self.quentity
+        print(total)
+        return "{:.2f}".format(total) 
+
+    def get_discount_amount(self):
+        
+        total_price = float(self.items.product_price) * self.quentity
+        discount_amount = total_price * (self.items.discount / 100)
+        return "{:.2f}".format(discount_amount)
+
+
+class Order(models.Model):
+    orderitems = models.ManyToManyField(Cart)
+    ordered_id = models.CharField(max_length=50, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    payment_id = models.CharField(max_length=250, blank=True, null=True)
+    order_id = models.CharField(max_length=250, blank=True, null=True)
+    payment_status = models.BooleanField(default=False)
+    order_confirm = models.BooleanField(default=False)
+    ordered_at = models.DateTimeField(null=True)
+    confirmed_at =  models.DateTimeField(null=True)
+    delevery_status = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.ordered_id:
+            year = str(datetime.date.today().year)[2:4]
+            month = str(datetime.date.today().month)
+            day = str(datetime.date.today().day)
+            self.ordered_id = 'SD'+year+month+day+str(self.pk).zfill(4)
+        if self.ordered and not self.ordered_at:
+            self.ordered_at = timezone.now()
+        
+        if self.order_confirm and not self.confirmed_at:
+            self.confirmed_at = timezone.now()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.user}'s orders  "
+
+    def get_totals(self):
+        total = 0
+        for order_item  in self.orderitems.all():
+            total += float(order_item.get_total())
+        return total
     
 
     

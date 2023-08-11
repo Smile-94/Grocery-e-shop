@@ -21,7 +21,7 @@
                                 <i class="fa-regular fa-star"></i>
                             </div>
                             <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
-                            <a href="" class="btn"> Add To Cart</a>
+                            <a href="{% url 'home:add_to_cart' product.id %}" class="btn"> Add To Cart</a>
                         </div>
                     </a>
                 {% endfor %}

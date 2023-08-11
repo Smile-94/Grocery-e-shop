@@ -1,0 +1,150 @@
+{% extends 'home_base/home_base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block body %}
+    <!-- ------------------------- Chart Items Details---------------------------- -->
+    <div class="small-container cart-page">
+        {% if chart_items %}
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Sub Total</th>
+                </tr>
+                {% for chart_item in chart_items %}
+                    <tr>
+                        <td>
+                            <div class="cart-info">
+                                <img src="{{chart_item.items.main_image.url}}" alt="">
+                                <div>
+                                    <p> {{chart_item.items.product_name}} </p>
+                                    <small>Tk {{chart_item.items.product_price}}(-{{chart_item.items.discount}}%) </small>
+                                    <br>
+                                    <a href="{% url 'home:remove_form_cart' chart_item.id %}">Remove</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{% url 'home:increase_cart' chart_item.items.id %}" class="btn cart-btn"><i class="fa-solid fa-plus"></i></a>
+                            <p class="input-quentity"> {{chart_item.quentity}} </p>
+                            <a href="{% url 'home:decrease_cart' chart_item.items.id %}" class="btn cart-btn"><i class="fa-solid fa-minus"></i></a>
+                        </td>
+                        <td>Tk {{chart_item.get_total}} (-{{chart_item.get_discount_amount}}) </td>
+                    </tr>
+            {% endfor %}
+            
+        </table>
+
+        {% endif %}
+        {% if chart_items %}
+                <div class="total-price">
+                    <table>
+                        <tr>
+                            <td>Total Items</td>
+                            <td> {{total_items}} </td>
+                        </tr>
+                        <tr>
+                            <td>Sub Total(Whout Discoutn)</td>
+                            <td> {{total_price}} /- </td>
+                        </tr>
+                        <tr>
+                            <td>Discount</td>
+                            <td> {{discount}} /- </td>
+                        </tr>
+                        <tr>
+                            <td>Shipping Charge</td>
+                            <td>{{shipping_charge.shipping_charge}}/-</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td> {{shipping_total}}/- </td>
+                        </tr>
+                    </table>
+                </div>
+
+                {% else %}
+                    <div class="small-container">
+                        <h2 class="title">Chart Is Empty</h2>
+                            <div class="row">
+                                {% if products %}
+                                {% for product in products %}
+                                    <a href="{% url 'home:product_details' product.id %}">
+                                        <div class="col-4">
+                                            <img src="{{product.main_image.url}}" alt="">
+                                            <h4> {{product.product_name}} ({{product.unit}}) </h4>
+                                            <div class="rating">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                            </div>
+                                            <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
+                                            <a href="{% url 'home:add_to_cart' product.id %}" class="btn"> Add To Cart</a>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            {% endif %} 
+                                
+                            
+                            </div>
+                    </div> 
+                
+            {% endif %}
+        </div>
+
+        <div class="small-container">
+            <h2 class="title">Suggested Product</h2>
+                <div class="row">
+                    {% if products %}
+                    {% for product in products %}
+                        <a href="{% url 'home:product_details' product.id %}">
+                            <div class="col-4">
+                                <img src="{{product.main_image.url}}" alt="">
+                                <h4> {{product.product_name}} ({{product.unit}}) </h4>
+                                <div class="rating">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </div>
+                                <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
+                                <a href="{% url 'home:add_to_cart' product.id %}" class="btn"> Add To Cart</a>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endif %} 
+                    
+                
+                </div>
+        </div>
+         
+{% endblock body %}
+
+
+    
+<h2 class="title">You Have No Product In your chart</h2>
+
+<div class="row">
+    {% if products %}
+    {% for product in products %}
+        <a href="{% url 'home:product_details' product.id %}">
+            <div class="col-4">
+                <img src="{{product.main_image.url}}" alt="">
+                <h4> {{product.product_name}} ({{product.unit}}) </h4>
+                <div class="rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                </div>
+                <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
+                <a href="{% url 'home:add_to_cart' product.id %}" class="btn"> Add To Cart</a>
+            </div>
+        </a>
+    {% endfor %}
+{% endif %} 

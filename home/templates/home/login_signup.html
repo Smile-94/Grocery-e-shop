@@ -1,0 +1,61 @@
+{% extends 'home_base/home_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block body %}
+    <!-- ------------------------- Accounts---------------------------- -->
+    <div class="account-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <img src="{% static 'home/images/image1.png' %}" alt="" width="100%">
+                </div>
+                <div class="col-2">
+                    <div class="from-container">
+                        <div class="form-btn">
+                            <span onclick="login()">Login</span>
+                            <span onclick="register()">Register</span>
+                            <hr id="Indicator">
+                        </div>
+
+                        <form action="" id="LoginForm" method="POST"> {% csrf_token %}
+                            {{form.username | add_class:"form-field" | append_attr:"placeholder:name@example.com"}}
+                            {{form.password | add_class:"form-field" | append_attr:"placeholder:password"}}
+                            <button type="submit" class="btn">Login</button>
+                        </form>
+                        <form action="{% url 'accounts:signup' %}" id="RegForm" method="POST"> {% csrf_token %}
+                            {{signup_form.email | add_class:"form-field" | append_attr:"placeholder:name@example.com"}}
+                            {{signup_form.password1 | add_class:"form-field" | append_attr:"placeholder:Create Password"}}
+                            {{signup_form.password2 | add_class:"form-field" | append_attr:"placeholder:Confirm Password"}}
+                            <button type="submit" class="btn">Register</button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+<!-- -------------------js for toggle Form------------------ -->
+<script>
+    var LoginForm = document.getElementById('LoginForm');
+    var RegForm = document.getElementById('RegForm');
+    var Indicator = document.getElementById('Indicator');
+
+    function register(){
+        RegForm.style.transform = 'translateX(0px)';
+        LoginForm.style.transform = 'translateX(0px)';
+        Indicator.style.transform = 'translateX(100px)';
+    }
+    function login(){
+        RegForm.style.transform = 'translateX(300px)';
+        LoginForm.style.transform = 'translateX(300px)';
+        Indicator.style.transform = 'translateX(0px)';
+    }
+
+
+ </script>
+
+{% endblock body %}

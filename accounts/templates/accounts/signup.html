@@ -1,4 +1,5 @@
 {% extends 'accounts_base/accounts_base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}
     {{title}}
@@ -6,41 +7,36 @@
 
 
 {% block body %}
-<!-- Sign Up Start -->
-<div class="container-fluid">
+<<div class="container-fluid">
     <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
         <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
             <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <a href="index.html" class="">
-                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                    <a href="#" class="">
+                        <h3 class="text-primary"><i class="fa fa-hashtag text-danger me-2"></i>E-Shop</h3>
                     </a>
-                    <h3>Sign Up</h3>
+                    <h3>Sign In</h3>
                 </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingText" placeholder="jhondoe">
-                    <label for="floatingText">Username</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput">Email address</label>
-                </div>
-                <div class="form-floating mb-4">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword">Password</label>
-                </div>
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <form action="" method="POST"> {% csrf_token %}
+                    <div class="form-floating mb-3">
+                        {{form.email | add_class:"form-control" | append_attr:"placeholder:name@example.com"}}
+                        <label for="floatingInput">Email address</label>
                     </div>
-                    <a href="">Forgot Password</a>
+                    <div class="form-floating mb-4">
+                        {{form.password1 | add_class:"form-control" | append_attr:"placeholder:name@example.com"}}
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        {{form.password2 | add_class:"form-control" | append_attr:"placeholder:name@example.com"}}
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
+                    <p class="text-center mb-0">Don't have account? <a href="{% url 'accounts:login' %}">Sign In</a></p>
+                </form>
+                <div class="d-flex align-items-center justify-content-between mb-4">
                 </div>
-                <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
-                <p class="text-center mb-0">Already have an Account? <a href="">Sign In</a></p>
             </div>
         </div>
     </div>
 </div>
-<!-- Sign Up End -->
 {% endblock body %}

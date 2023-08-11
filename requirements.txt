@@ -3,3 +3,4 @@ Django==4.2.2
 Pillow==9.5.0
 django-widget-tweaks==1.4.12
 django-filter==23.2
+pysslcmz-1.1.3
