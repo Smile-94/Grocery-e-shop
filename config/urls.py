@@ -15,6 +15,7 @@ from authority import urls as authority_urls
 from customer import urls as customer_urls
 from home import urls as home_urls
 from products import urls as products_urls
+from payment import urls as payment_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +24,7 @@ urlpatterns = [
     path('', include(customer_urls)),
     path('', include(home_urls)),
     path('', include(products_urls)),
+    path('', include(payment_urls)),
 ]
 
 # Serve Static Files

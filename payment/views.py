@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 # Packages for python
 import requests
 import socket
-from sslcommerz_python.payment import SSLCSession
+from pysslcmz.payment import SSLCSession
 from decimal import Decimal
 
 # Models
@@ -41,8 +41,6 @@ def check_out(request):
     shipping_charge=shipping_charges.shipping_charge
     total_pay = shipping_charge+order_total
            
-
-
     return render(request, 'payment/check_out.html', context={'form':form, 'order_items':order_items,'order_total':order_total, 'total_item':total_item, 'saved_address': saved_address,'total_pay':total_pay,'shipping_charge':shipping_charge})
 
 
@@ -69,8 +67,7 @@ def payment(request):
     order_total = order_qs[0].get_totals()+shipping_charge.shipping_charge
 
     current_user = request.user
-    full_name = str(current_user.profile.first_name+" "+current_user.profile.last_name)
-    print(full_name)
+
 
     mypayment = SSLCSession(sslc_is_sandbox=True, sslc_store_id='sizzl64456beb762af', sslc_store_pass='sizzl64456beb762af@ssl')
 
@@ -78,9 +75,9 @@ def payment(request):
 
     mypayment.set_product_integration(total_amount=Decimal(order_total), currency='BDT', product_category='food', product_name=order_items, num_of_item=order_items_count, shipping_method='YES', product_profile='None')
 
-    mypayment.set_customer_info(name=full_name, email=current_user.email, address1=current_user.profile.address_1, address2=current_user.profile.address_1, city='Dhaka', postcode='1230', country='Bangladesh', phone=current_user.profile.phone_number)
+    mypayment.set_customer_info(name=current_user.profile.full_name, email=current_user.email, address1=current_user.profile.address, address2=current_user.profile.address, city='Dhaka', postcode='1230', country='Bangladesh', phone=current_user.profile.phone_number)
 
-    mypayment.set_shipping_info(shipping_to=full_name, address=saved_address.address, city=saved_address.city, postcode=saved_address.zip_code, country=saved_address.country)
+    mypayment.set_shipping_info(shipping_to=current_user.profile.full_name, address=saved_address.address, city=saved_address.city, postcode=saved_address.zip_code, country=saved_address.country)
 
     response_data = mypayment.init_payment()
     print(response_data)
@@ -127,7 +124,7 @@ def purchase(request, val_id, tran_id):
         item.purchased = True
         item.save()
 
-    return HttpResponseRedirect(reverse('home:my_order'))
+    return HttpResponseRedirect(reverse('customer:customer'))
 
 @login_required
 def cashon_purchase(request):
@@ -140,3 +137,4 @@ def cashon_purchase(request):
         item.purchased = True
         item.save()
 
+    return HttpResponseRedirect(reverse('customer:customer'))

@@ -6,6 +6,7 @@
 {% block body %}
     <!-- ------------------------- Chart Items Details---------------------------- -->
     <div class="small-container cart-page">
+        
         {% if chart_items %}
             <table>
                 <tr>
@@ -62,7 +63,12 @@
                             <td> {{shipping_total}}/- </td>
                         </tr>
                     </table>
+                    
                 </div>
+                <div class="total-price">
+                    <a href="{% url 'payment:checkout' %}" class="btn"> Checkout </a>
+                </div>
+                
 
                 {% else %}
                     <div class="small-container">

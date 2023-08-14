@@ -95,7 +95,7 @@ class Profile(models.Model):
     date_of_join = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.first_name+"'s profile"
+        return self.full_name+"'s profile"
     
     def is_fully_filled(self):
         field_names = [f.name for f in self._meta.get_fields()]

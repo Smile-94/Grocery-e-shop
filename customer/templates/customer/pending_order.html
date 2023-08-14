@@ -1,0 +1,69 @@
+{% extends 'customer_base/customer_base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block body %}
+  
+<!-- Sale & Revenue End -->
+
+<!-- Recent Sales Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h5 class="mb-0">Pending Orders</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                {% if orders %}
+                    <thead>
+                        <tr class="text-dark">
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Payment ID</th>
+                            <th scope="col">Payment Satus</th>
+                            <th scope="col">Order status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{order.ordered_id}}</td>
+                                <td> 
+                                    {% if order.payment_id %}
+                                        {{order.payment_id }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if order.payment_status %}
+                                        Paid
+                                    {% else %}
+                                        Cash On
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if order.order_confirm %}
+                                        Confirmed
+                                    {% else %}
+                                        Pending
+                                    {% endif %}
+                                </td>
+                                <td>{{order.created}}</td>
+                                <td> {{order.get_totals}} </td>
+                            </tr>
+                        {% endfor %}
+                        
+                        
+                    </tbody>
+                {% endif %}
+                
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Recent Sales End -->
+{% endblock body %}

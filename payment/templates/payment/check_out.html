@@ -1,0 +1,51 @@
+{% extends 'home_base/home_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block body %}
+<div class="account-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-2" style="margin-right:5px">
+                    
+                    <form action="" id="LoginForm" method="POST"> {% csrf_token %}
+                        {{form.address | add_class:"form-field" | append_attr:"placeholder:address"}}
+                        {{form.zip_code | add_class:"form-field" | append_attr:"placeholder:zip code"}}
+                        {{form.city | add_class:"form-field" | append_attr:"placeholder:city"}}
+                        {{form.country | add_class:"form-field" | append_attr:"placeholder:country"}}
+                        <button type="submit" class="btn">Save</button>
+                    </form>
+            </div>
+            <div class="col-2">
+                        <table>
+                            <tr>
+                                <td>Total Items</td>
+                                <td> {{total_item}} </td>
+                            </tr>
+                            <tr>
+                                <td>Sub Total(Whout Discoutn)</td>
+                                <td> {{order_total}} /- </td>
+                            </tr>
+                            <tr>
+                                <td>Discount</td>
+                                <td> {{discount}} /- </td>
+                            </tr>
+                            <tr>
+                                <td>Shipping Charge</td>
+                                <td>{{shipping_charge}}/-</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td> {{total_pay}}/- </td>
+                            </tr>
+                        </table> 
+                        <a href="{% url 'payment:cash_on_purchase' %}" class="btn"> Cashon Delevery </a>
+                        <a href="{% url 'payment:payment' %}" class="btn"> Payment </a>
+            </div>
+                
+        </div>
+    </div>
+</div>
+{% endblock body %}

@@ -138,12 +138,18 @@ class Order(models.Model):
             year = str(datetime.date.today().year)[2:4]
             month = str(datetime.date.today().month)
             day = str(datetime.date.today().day)
-            self.ordered_id = 'SD'+year+month+day+str(self.pk).zfill(4)
+            
+            # Save the instance to get a valid primary key (self.pk)
+            super().save(*args, **kwargs)
+            
+            self.ordered_id = 'SD' + year + month + day + str(self.pk).zfill(4)
+        
         if self.ordered and not self.ordered_at:
             self.ordered_at = timezone.now()
-        
+            
         if self.order_confirm and not self.confirmed_at:
             self.confirmed_at = timezone.now()
+
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -151,8 +157,9 @@ class Order(models.Model):
 
     def get_totals(self):
         total = 0
-        for order_item  in self.orderitems.all():
-            total += float(order_item.get_total())
+        for order_item in self.orderitems.all():
+            item_total = float(order_item.get_total()) - float(order_item.get_discount_amount())
+            total += item_total
         return total
     
 
