@@ -50,7 +50,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="{% url 'authority:authority' %}" class="navbar-brand mx-4 mb-3">
+                <a href="{% url 'deleveryman:deleveryman' %}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>E-Shop</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -59,68 +59,19 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"> {{request.user.profile.full_name}} </h6>
-                        <span>Admin</span>
+                        <h6 class="mb-0">{{request.user.profile.full_name}}</h6>
+                        <span>Deleveryman</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="{% url 'authority:authority' %}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    {% comment %} <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i></i>Customer</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-user me-2"></i>Customer List</a>
-                        </div>
-                    </div> {% endcomment %}
+                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-truck"></i>Deleveryman</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i></i>My Orders</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{% url 'authority:add_deleveryman' %}" class="dropdown-item"><i class="fa-solid fa-truck me-2"></i>Add Deleveryman</a>
-                            <a href="{% url 'authority:deleveryman_list' %}" class="dropdown-item"><i class="fa-solid fa-truck me-2"></i>Deleveryman List</a>
+                            <a href="{% url 'customer:my_pending_list' %}" class="dropdown-item"><i class="fa-solid fa-user-plus me-2"></i>Pending Orders</a>
+                            <a href="{% url 'customer:my_confirmed_list' %}" class="dropdown-item"><i class="fa-solid fa-user me-2"></i>Confirmed Orders</a>
                         </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i>Customer</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{% url 'authority:customer_list' %}" class="dropdown-item"><i class="fa-solid fa-user"></i>Customer List</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-brands fa-product-hunt"></i>Product</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{% url 'products:add_product' %}" class="dropdown-item"><i class="fa-brands fa-product-hunt me-2"></i>Add Product</a>
-                            <a href="{% url 'products:product_list' %}" class="dropdown-item"><i class="fa-brands fa-product-hunt me-2"></i>Product List</a>
-                            <a href="{% url 'products:add_category' %}" class="dropdown-item"><i class="fa-brands fa-product-hunt me-2"></i>Category</a>
-                            <a href="{% url 'products:add_subCategory' %}" class="dropdown-item"><i class="fa-brands fa-product-hunt me-2"></i>Sub Category</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping"></i>Manage Order</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{% url 'authority:pending_order_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-shopping me-2"></i>Pending Order</a>
-                            <a href="{% url 'authority:confirmed_order_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-shopping me-2"></i>Confirmed Order</a>
-                        </div>
-                    </div>
-                    {% comment %} <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-store me-2"></i>Store</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store me-2"></i>Purchase Product</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store me-2"></i>Purchase List</a>
-                        </div>
-                    </div> {% endcomment %}
-                    {% comment %} <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-money-bill me-2"></i>Payments</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-money-bill me-2"></i>Payments List</a>
-                        </div>
-                    </div> {% endcomment %}
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-chart-pie"></i>Report</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-chart-pie me-2"></i>Order Report</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-chart-pie me-2"></i>Purchase Report</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-chart-pie me-2"></i>Sals Report</a>
-                        </div>
-                    </div>
+                    </div>    
                 </div>
             </nav>
         </div>
@@ -137,49 +88,9 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                {% comment %} <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form> {% endcomment %}
+               
                 <div class="navbar-nav align-items-center ms-auto">
-                    {% comment %} <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="{% static 'img/user.jpg' %}" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="{% static 'img/user.jpg' %}" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="{% static 'img/user.jpg' %}" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div> {% endcomment %}
+                    
                     {% comment %} <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
@@ -206,12 +117,12 @@
                     </div> {% endcomment %}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src=" {{request.user.profile.photo.url}} " alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="{{request.user.profile.photo.url}}" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex"> {{request.user.profile.full_name}} </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
+                            {% comment %} <a href="{% url 'customer:edit_profile' request.user.profile.id %}" class="dropdown-item">My Profile</a> {% endcomment %}
+                            {% comment %} <a href="#" class="dropdown-item">Settings</a> {% endcomment %}
                             <a href="{% url 'accounts:logout' %}" class="dropdown-item">Log Out</a>
                         </div>
                     </div>

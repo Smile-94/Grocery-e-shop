@@ -18,9 +18,9 @@ class SignUpForm(UserCreationForm):
 
 
 class ProfileForm(forms.ModelForm):
-    full_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
-    phone_number = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}))
-    address = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Phone Number'}))
+    full_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Full Name'}))
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Phone Number'}))
+    address = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Address'}))
     photo = forms.ImageField(widget=CustomPictureImageFieldWidget)
     
 

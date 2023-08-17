@@ -122,7 +122,7 @@ class UserLoginView(LoginView):
 
             elif user is not None and request_user.is_deleveryman is True:
                 login(self.request, user)
-                return HttpResponse("Delevery Man login page will implement soon")
+                return HttpResponseRedirect(reverse('deleveryman:deleveryman'))
 
             
             else:
