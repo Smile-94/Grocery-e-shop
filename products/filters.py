@@ -5,6 +5,7 @@ from django import forms
 from products.models import Category
 from products.models import SubCategory
 from products.models import Product
+from products.models import Order
 
 
 class CategoryFilters(django_filters.FilterSet):
@@ -39,5 +40,14 @@ class ProductFilter(django_filters.FilterSet):
     class Meta:
         model = Product
         fields = ('product_id','product_name', )
+
+
+class OrderFilter(django_filters.FilterSet):
+    from_date = django_filters.DateFilter(field_name='ordered_at', lookup_expr='gte', widget=forms.DateInput(attrs={'type': 'date'}), label='From')
+    to_date = django_filters.DateFilter(field_name='ordered_at', lookup_expr='lte', widget=forms.DateInput(attrs={'type': 'date'}), label='To')
+
+    class Meta:
+        model = Order
+        fields = ['ordered_at']
     
         

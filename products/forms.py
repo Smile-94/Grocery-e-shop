@@ -4,6 +4,7 @@ from django import forms
 from products.models import Category
 from products.models import SubCategory
 from products.models import Product
+from products.models import Order
 
 # Import Widgets
 from products.widgets import CustomPictureImageFieldWidget
@@ -41,3 +42,9 @@ class ProductForm(forms.ModelForm):
         self.fields['sub_catagory_1'].queryset = sub_category_1_queryset
         self.fields['sub_catagory_2'].queryset = sub_category_1_queryset
         self.fields['sub_catagory_3'].queryset = sub_category_1_queryset
+
+class OrderConfirmForm(forms.ModelForm):
+
+    class Meta:
+        model = Order
+        fields = ('order_confirm',)

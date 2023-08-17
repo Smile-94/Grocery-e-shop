@@ -64,20 +64,13 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i></i>Staff User</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item"><i class="fa-solid fa-user-plus me-2"></i>Add User</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-user me-2"></i>User List</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
+                    <a href="{% url 'authority:authority' %}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    {% comment %} <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i></i>Customer</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-user me-2"></i>Customer List</a>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-truck"></i>Deleveryman</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -97,24 +90,23 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping"></i>Manage Order</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item"><i class="fa-solid fa-cart-shopping me-2"></i>Pending Order</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-cart-shopping me-2"></i>Confirmed Order</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-cart-shopping me-2"></i>Delevery Pending</a>
-                            <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-cart-shopping me-2"></i>Delevered Order</a>
+                            <a href="{% url 'authority:pending_order_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-shopping me-2"></i>Pending Order</a>
+                            <a href="{% url 'authority:confirmed_order_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-shopping me-2"></i>Confirmed Order</a>
+                        </div>
                     </div>
-                    <div class="nav-item dropdown">
+                    {% comment %} <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-store me-2"></i>Store</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store me-2"></i>Purchase Product</a>
                             <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-store me-2"></i>Purchase List</a>
                         </div>
-                    </div>
-                    <div class="nav-item dropdown">
+                    </div> {% endcomment %}
+                    {% comment %} <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-money-bill me-2"></i>Payments</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="typography.html" class="dropdown-item"><i class="fa-solid fa-money-bill me-2"></i>Payments List</a>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-chart-pie"></i>Report</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -139,11 +131,11 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
+                {% comment %} <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+                </form> {% endcomment %}
                 <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
+                    {% comment %} <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-envelope me-lg-2"></i>
                             <span class="d-none d-lg-inline-flex">Message</span>
@@ -181,8 +173,8 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item text-center">See all message</a>
                         </div>
-                    </div>
-                    <div class="nav-item dropdown">
+                    </div> {% endcomment %}
+                    {% comment %} <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
                             <span class="d-none d-lg-inline-flex">Notificatin</span>
@@ -205,11 +197,11 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item text-center">See all notifications</a>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{% static 'img/user.jpg' %}" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <img class="rounded-circle me-lg-2" src=" {{request.user.profile.photo.url}} " alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex"> {{request.user.profile.full_name}} </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
