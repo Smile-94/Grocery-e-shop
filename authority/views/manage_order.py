@@ -67,6 +67,7 @@ class OrderDetailsView(LoginRequiredMixin, AdminPassesTestMixin, DetailView):
         context["details"] = True
         context["shipping_charge"] = shipping_charge
         context["total"] = order_total.get_totals()+shipping_charge.shipping_charge
+        context["form"] = OrderConfirmForm
         return context
 
 class ConfirmOrderView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):

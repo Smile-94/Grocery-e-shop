@@ -47,4 +47,4 @@ class OrderConfirmForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ('order_confirm',)
+        fields = ('order_confirm', 'assigned_to')

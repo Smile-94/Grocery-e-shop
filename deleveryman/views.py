@@ -32,8 +32,8 @@ class DeleveryManHomeView(LoginRequiredMixin, DeleveryManPassesTestMixin, Templa
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Customer Panel" 
-        # context["orders"] = Order.objects.filter(user=self.request.user, ordered=True).order_by('-id')[:10]
-        # context["pending_order"] = Order.objects.filter(user=self.request.user, ordered=True, order_confirm=False).count()
-        # context["confirmed_order"] = Order.objects.filter(user=self.request.user, ordered=True, order_confirm=True).count()
-        # context["total_orders"] = Order.objects.filter(user=self.request.user, ordered=True).count()
+        context["orders"] = Order.objects.filter(assigned_to=self.request.user, ordered=True, order_confirm=True).order_by('-id')[:10]
+        context["pending_order"] = Order.objects.filter(assigned_to=self.request.user, ordered=True, order_confirm=True, delevery_status=False).count()
+        context["confirmed_order"] = Order.objects.filter(assigned_to=self.request.user, ordered=True, delevery_status=True).count()
+        context["total_orders"] = Order.objects.filter(assigned_to=self.request.user, ordered=True,order_confirm=True ).count()
         return context

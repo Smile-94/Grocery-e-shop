@@ -133,11 +133,23 @@ class Cart(models.Model):
         discount_amount = total_price * (self.items.discount / 100)
         return "{:.2f}".format(discount_amount)
 
+class DeliverymanManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_deleveryman=True)
+
 
 class Order(models.Model):
     orderitems = models.ManyToManyField(Cart)
     ordered_id = models.CharField(max_length=50, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    assigned_to = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='delivery_man',
+        limit_choices_to={'is_deleveryman': True},
+        blank=True,
+        null=True
+    )
     ordered = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     payment_id = models.CharField(max_length=250, blank=True, null=True)
@@ -147,6 +159,9 @@ class Order(models.Model):
     ordered_at = models.DateTimeField(null=True)
     confirmed_at =  models.DateTimeField(null=True)
     delevery_status = models.BooleanField(default=False)
+
+    objects = models.Manager()  # The default manager
+    deliverymen = DeliverymanManager()
 
     def save(self, *args, **kwargs):
         if not self.ordered_id:
