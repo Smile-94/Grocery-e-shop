@@ -32,7 +32,11 @@
                         {% endif %}
                     </ul>
                     {% if user.is_authenticated %}
-                        <a href="{% url 'home:cart_details' %}"><img src="{% static 'home/images/cart.png' %}" alt="" width="30px" height="30px"></a>
+                        <a href="{% url 'home:cart_details' %}"><img src="{% static 'home/images/cart.png' %}" alt="" width="30px" height="30px">
+                            {% if chart_item_quetity %}
+                                ({{chart_item_quetity}})
+                            {% endif %}
+                        </a>   
                     {% endif %}
                     <img src="{% static 'home/images/menu.png' %}" class="menu-icon" onclick="menutoggle()">
                 </nav>

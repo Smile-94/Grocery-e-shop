@@ -57,6 +57,7 @@
                             <th scope="col">Order status</th>
                             <th scope="col">Date</th>
                             <th scope="col">Amount</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,6 +87,9 @@
                                 </td>
                                 <td>{{order.created}}</td>
                                 <td> {{order.get_totals}} </td>
+                                <td> 
+                                    <a class="btn btn-sm btn-primary" href="{% url 'deleveryman:deleveryman_order_details' order.id %}">Detail</a>
+                                </td>
                             </tr>
                         {% endfor %}
                         

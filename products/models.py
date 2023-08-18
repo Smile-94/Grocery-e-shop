@@ -105,19 +105,19 @@ class Cart(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 
-    def save(self, *args, **kwargs):
-        # Calculate the difference in quantity before saving
-        if self.pk:  # Check if the instance is being updated
-            old_cart_item = Cart.objects.get(pk=self.pk)
-            quantity_diff = self.quentity - old_cart_item.quentity
-        else:
-            quantity_diff = self.quentity
+    # def save(self, *args, **kwargs):
+    #     # Calculate the difference in quantity before saving
+    #     if self.pk:  # Check if the instance is being updated
+    #         old_cart_item = Cart.objects.get(pk=self.pk)
+    #         quantity_diff = self.quentity - old_cart_item.quentity
+    #     else:
+    #         quantity_diff = self.quentity
 
-        # Update product stock
-        self.items.stock -= quantity_diff
-        self.items.save()
+    #     # Update product stock
+    #     self.items.stock -= quantity_diff
+    #     self.items.save()
 
-        super(Cart, self).save(*args, **kwargs)
+    #     super(Cart, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.quentity} X {self.items}"
