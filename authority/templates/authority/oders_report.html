@@ -1,0 +1,38 @@
+
+{% extends 'admin_base/admin_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block body %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0">Confirmed Order</h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-white bg-dark">
+                        <th scope="col">Date</th>
+                        <th scope="col">Invoice</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        {% for order in orders %}
+                        <tr>
+                            <td> {{order.ordered_at}} </td>
+                            <td> {{order.ordered_id}} </td>
+                            <td> {{order.user.profile.full_name}} </td>
+                            <td> {{order.get_totals}} </td>
+                    {% endfor %}
+            </tbody>
+    </div>  
+</div>
+</div>                          
+                
+{% endblock body %}

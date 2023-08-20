@@ -21,7 +21,12 @@
                                 <i class="fa-regular fa-star"></i>
                             </div>
                             <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
-                            <a href="{% url 'home:add_to_cart' product.id %}" class="btn"> Add To Cart</a>
+                            {% if product.stock != 0 %}
+                                <a href="{% url 'home:add_to_cart' product.id %}" class="btn"> Add To Cart</a>
+                            {% else %}
+                                <h5> Stock Out </h5>
+                            {% endif %}
+                            
                         </div>
                     </a>
                 {% endfor %}

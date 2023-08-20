@@ -1,0 +1,44 @@
+
+{% extends 'admin_base/admin_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block body %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0">Confirmed Order</h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-white bg-dark">
+                        <th scope="col">Product ID</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Category</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">RPU</th>
+                        <th scope="col">Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        {% for order in orders %}
+                        <tr>
+                            <td> {{order.product_id}} </td>
+                            <td> {{order.product_name}} </td>
+                            <td> {{order.product_category}} </td>
+                            <td> {{order.unit}} </td>
+                            <td> {{order.stock}} </td>
+                            <td> {{order.product_price}} </td>
+                            <td> {{order.total_price}} </td>
+                    {% endfor %}
+            </tbody>
+    </div>  
+</div>
+</div>                          
+                
+{% endblock body %}

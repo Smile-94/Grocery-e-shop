@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 # Import Validators
 from common.validators import validate_float_value, validate_float_value_with_range
@@ -105,20 +106,29 @@ class Cart(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 
-    # def save(self, *args, **kwargs):
-    #     # Calculate the difference in quantity before saving
-    #     if self.pk:  # Check if the instance is being updated
-    #         old_cart_item = Cart.objects.get(pk=self.pk)
-    #         quantity_diff = self.quentity - old_cart_item.quentity
-    #     else:
-    #         quantity_diff = self.quentity
+    def save(self, *args, **kwargs):
+        # Get the original instance before the save
+        original_cart = Cart.objects.filter(pk=self.pk).first()
 
-    #     # Update product stock
-    #     self.items.stock -= quantity_diff
-    #     self.items.save()
+        super(Cart, self).save(*args, **kwargs)
 
-    #     super(Cart, self).save(*args, **kwargs)
+        # Update product stock based on changes in cart item quantities
+        if self.purchased and (not original_cart or self.quentity != original_cart.quentity):
+            # Product is being purchased or quantity changed, adjust stock accordingly
+            stock_change = self.quentity - (original_cart.quentity if original_cart else 0)
+            self.items.stock -= stock_change
+            self.items.save()
+        elif not self.purchased and original_cart and self.quentity != original_cart.quentity:
+            # Product is being removed from cart or quantity changed, adjust stock accordingly
+            stock_change = original_cart.quentity - self.quentity
+            self.items.stock += stock_change
+            self.items.save()
 
+    def clean(self):
+        if self.quentity < 1:
+            raise ValidationError("Quantity must be at least 1.")
+
+   
     def __str__(self):
         return f"{self.quentity} X {self.items}"
     

@@ -7,6 +7,7 @@ from authority.views import admin_main
 from authority.views import manage_order
 from authority.views import manage_deleveryman
 from authority.views import manage_customer
+from authority.views import reports
 
 urlpatterns = [
     path("authority/", admin_main.AdminView.as_view(), name="authority"),
@@ -32,9 +33,18 @@ urlpatterns += [
     path('deleveryman-list/', manage_deleveryman.DeleveryManListView.as_view(), name='deleveryman_list'),
     path('edit-delevery-man-info/<int:pk>/', manage_deleveryman.DeleveryManInfoEditView.as_view(), name='edit_deleveryman_info'),  
 ]
+
 # Manage Customer
 urlpatterns += [
     
     path('customer-list/', manage_customer.CustomerListView.as_view(), name='customer_list'),
+    
+]
+
+# Manage Customer
+urlpatterns += [
+    
+    path('orders-report/', reports.ReportOrderView.as_view(), name='order_report'),
+    path('stock-report/', reports.StockReportView.as_view(), name='stock_report'),
     
 ]

@@ -32,7 +32,11 @@
         <div class="col-2">
             <h1 > {{product.product_name}} ( {{product.unit}} )</h1>
             <h4> {{product.product_price}} (-{{product.discount}}%) TK </h4>
-            <a href="" class="btn"> Add To Cart</a>
+            {% if product.stock != 0 %}
+                    <a href="{% url 'home:add_to_cart' product.id %}" class="btn"> Add To Cart</a>
+                {% else %}
+                    <h5> Stock Out </h5>
+            {% endif %}
 
             <h3>Product Details <i class="fa fa-indent "></i></h3>
             <br>
@@ -66,7 +70,11 @@
                             <i class="fa-regular fa-star"></i>
                         </div>
                         <p>$ {{product.product_price}} (-{{product.discount}}%) </p>
-                        <a href="{% url 'home:add_to_cart' product.id %}" class="btn"> Add To Cart</a>
+                        {% if product.stock != 0 %}
+                                <a href="{% url 'home:add_to_cart' product.id %}" class="btn"> Add To Cart</a>
+                        {% else %}
+                                <h5> Stock Out </h5>
+                        {% endif %}
                     </div>
                 </a>
             {% endfor %}

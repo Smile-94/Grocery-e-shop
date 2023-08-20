@@ -25,7 +25,6 @@ from authority.models import ShippingCharge
 def add_to_cart(request, pk):
     # item = get_object_or_404(Product, id=pk)
     item = Product.objects.get(id=pk)
-    print("Item", item)
 
     order_item = Cart.objects.get_or_create(items=item, user=request.user,purchased=False)
     order_qs = Order.objects.filter(user = request.user, ordered=False)
@@ -78,6 +77,8 @@ def remove_form_cart(request, pk):
         order = order_qs[0]
         if order.orderitems.filter(items=item).exists():
             order_item = Cart.objects.filter(items=item, user= request.user, purchased=False )[0]
+            order_item.items.stock += order_item.quentity
+            order_item.items.save()
             order.orderitems.remove(order_item)
             order_item.delete()
             return redirect('home:cart_details')

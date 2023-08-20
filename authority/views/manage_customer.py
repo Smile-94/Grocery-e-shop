@@ -19,8 +19,6 @@ from authority.permissions import AdminPassesTestMixin
 # Import Models
 from accounts.models import User
 
-
-
 class CustomerListView(LoginRequiredMixin, AdminPassesTestMixin, ListView):
     queryset = User.objects.filter(is_customer=True)
     filterset_class = EmployeeListFilter
