@@ -9,7 +9,11 @@
 <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h4 class="mb-0">Confirmed Order</h4>
+            <h4 class="mb-0">stock Report</h4>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+            <a class="btn btn-primary" href="{% url 'report:stock_pdf' %}" target="_blank" role="button"><i class="fa-regular fa-circle-down"></i></a>
+            <a class="btn btn-primary" href="#" target="_blank" role="button"><i class="fa-solid fa-print"></i></a>
         </div>
         <div class="table-responsive">
             <table class="table text-start align-middle table-bordered table-hover mb-0">

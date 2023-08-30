@@ -26,19 +26,20 @@ from authority.forms import ConfirmDeleveryForm
 from products.forms import OrderConfirmForm
 
 from products.filters import OrderFilter
+from authority.filters import ReportFilter
 
 
 class ReportOrderView(LoginRequiredMixin, AdminPassesTestMixin, ListView):
     model = Order
     queryset = Order.objects.filter(ordered=True, order_confirm=True, delevery_status=True).order_by('-id')
-    context_object_name = 'orders'
+    filterset_class = OrderFilter
     template_name = 'authority/oders_report.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Confirmed Order List" 
+        context['orders'] = self.filterset_class(self.request.GET, queryset=self.queryset)
         return context
-
 
 class StockReportView(LoginRequiredMixin, AdminPassesTestMixin, ListView):
     model = Product

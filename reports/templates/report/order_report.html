@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completed Task Pdf</title>
+    <style>
+        .table-container {
+            margin-bottom: 10px;
+          }
+
+        h2 {
+			text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #e1f1fb;
+            border-radius: 10px;
+            font-size: 16px;
+          }
+          
+          td {
+            padding: 5px;
+            text-align: left;
+            border-bottom: 1px solid #000;
+          }
+          
+          
+          .label {
+            width: 35%;
+            padding : 5px;
+            background-color: #808B96;
+            font-weight: bold;
+            color: #000;
+            text-align: left;
+            border-radius: 10px 0 0 10px;
+          }
+
+          .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 16px;
+          }
+          
+          .photo {
+            margin-right: 20px;
+            margin-bottom: 5px;
+          }
+          
+          .photo img {
+            width: 150px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          
+          .details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+          }
+          
+          .designation {
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+          
+          .department {
+            font-style: italic;
+            margin-bottom: 5px;
+          }
+          
+          
+
+    </style>
+</head>
+<body>
+      <div class="table-container">
+        <h2>Order Report</h2>
+        <p>Date:  {{date}} <p>
+        <table>
+            <thead>
+                <tr class="text-white bg-dark">
+                    <th class="label">Sl</th>
+                    <th class="label">Date</th>
+                    <th class="label">Invoice</th>
+                    <th class="label">Customer</th>
+                    <th class="label">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                    
+                {% for order in orders %}
+                <tr>
+                    <td> {{forloop.counter}} </td>
+                    <td> {{order.ordered_at}} </td>
+                    <td> {{order.ordered_id}} </td>
+                    <td> {{order.user.profile.full_name}} </td>
+                    <td> {{order.get_totals}} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+      </div>        
+</body>
+</html>

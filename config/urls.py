@@ -17,6 +17,7 @@ from home import urls as home_urls
 from products import urls as products_urls
 from payment import urls as payment_urls
 from deleveryman import urls as deleveryman_urls
+from reports import urls as report_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +28,7 @@ urlpatterns = [
     path('', include(products_urls)),
     path('', include(payment_urls)),
     path('', include(deleveryman_urls)),
+    path('', include(report_urls)),
 
 ]
 

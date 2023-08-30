@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'payment.apps.PaymentConfig',
     'products.apps.ProductsConfig',
     'common.apps.CommonConfig',
+    'reports.apps.ReportsConfig',
 
     # 3rd party apps and packages
     'widget_tweaks',

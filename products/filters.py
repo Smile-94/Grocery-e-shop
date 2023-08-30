@@ -48,6 +48,6 @@ class OrderFilter(django_filters.FilterSet):
 
     class Meta:
         model = Order
-        fields = ['ordered_at']
+        fields = ['from_date','to_date']
     
         
