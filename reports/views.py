@@ -17,16 +17,17 @@ from products.models import Product
 
 class OrderListPdfView(PdfMixin, DetailView):
     model = Order
+    queryset = Order.objects.filter(ordered=True, order_confirm=True, delevery_status=True).order_by('-id')  # Pass the queryset of all orders to the context
     context_object_name = 'orders'
     template_name = "report/order_report.html"  # Create a new template for the list view
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['static_url'] = self.request.build_absolute_uri(settings.STATIC_URL)
-        context['orders'] = Order.objects.filter(ordered=True, order_confirm=True, delevery_status=True).order_by('-id')  # Pass the queryset of all orders to the context
-        context['date'] = datetime.date.today()
+        context['orders'] = self.queryset
         return context
     
+
     def get(self, request, *args, **kwargs):
         self.object = None  # Set object to None since it's not used in the template
         context = self.get_context_data()
